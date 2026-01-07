@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANGYX</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .title {
+            width: 200px; /* Adjusted for mobile - smaller logo on phone */
+            height: auto;
+            margin: 10px auto 15px; /* Reduced margins for tighter fit on mobile */
+            display: block;
+        }
+        .title img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .page {
+            max-width: 600px; /* Desktop width */
+            padding: 20px 15px; /* Reduced padding for mobile */
+            text-align: center;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            width: 90%; /* Responsive width for mobile */
+        }
+        .page.active {
+            display: block;
+        }
+        h1 {
+            color: #ff4757;
+            margin-bottom: 20px; /* Reduced margin */
+            font-size: 1.8em; /* Smaller on mobile */
+        }
+        .apology-letter {
+            line-height: 1.5; /* Tighter line-height for mobile */
+            margin-bottom: 30px;
+            font-size: 1em; /* Smaller font for better fit */
+            padding: 30px 20px; /* Increased padding to push text away from edges */
+            max-width: 80%; /* Narrow text width - shorter lines */
+            margin-left: auto;
+            margin-right: auto; /* Center the narrowed text */
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Smaller gap on mobile */
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px; /* Smaller buttons */
+            font-size: 0.95em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .yes-btn {
+            background: #2ed573;
+            color: white;
+        }
+        .yes-btn:hover {
+            background: #26ad5f;
+            transform: scale(1.05);
+        }
+        .no-btn {
+            background: #ff6b6b;
+            color: white;
+        }
+        .no-btn:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+        .password-section {
+            margin-top: 20px;
+        }
+        .password-input {
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            width: 200px;
+            margin: 10px;
+        }
+        .password-btn {
+            background: #ff9ff3;
+            color: white;
+        }
+        .password-btn:hover {
+            background: #e84393;
+        }
+        .memories {
+            text-align: left;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        .chapter {
+            margin-bottom: 20px;
+            border-left: 4px solid #ff6b6b;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .chapter-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #ff4757;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .chapter-header:hover {
+            background: #e9ecef;
+        }
+        .chapter-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .chapter.expanded .chapter-content {
+            padding: 20px;
+            max-height: 1000px; /* Adjust as needed for content */
+        }
+        .chapter img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .chapter p {
+            line-height: 1.7;
+            font-size: 1.1em;
+            color: #555;
+            margin: 0;
+        }
+        .arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+        .chapter.expanded .arrow {
+            transform: rotate(180deg);
+        }
+        .final-message {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #2f3542;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .modal h2 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        .modal-message {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .retry-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .retry-yes {
+            background: #2ed573;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .retry-no {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .page {
+                width: 95%;
+                padding: 15px 10px;
+            }
+            .title {
+                width: 180px;
+                margin: 10px auto 10px;
+            }
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+            .apology-letter {
+                font-size: 0.95em;
+                line-height: 1.4;
+                margin-bottom: 25px;
+                padding: 25px 15px; /* Extra padding on mobile for edges */
+                max-width: 85%; /* Slightly wider on mobile for balance */
+            }
+            button {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+            .buttons {
+                gap: 10px;
+                margin-top: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .page {
+                width: 98%;
+                padding: 10px 5px;
+            }
+            .title {
+                width: 160px;
+            }
+            h1 {
+                font-size: 1.3em;
+            }
+            .apology-letter {
+                font-size: 0.9em;
+                padding: 30px 10px; /* More padding on small screens for edges */
+                max-width: 90%; /* Even wider on tiny screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page 1: Apology Letter -->
+    <div id="page1" class="page active">
+        <div class="title">
+            <img src="Photo1.png" alt="ANGYX Logo">
+        </div>
+        <h1>I'm Truly Sorry, My Love</h1>
+        <div class="apology-letter">
+            <p>Maru pyaru dhinglu,</p>
+            <p>I know me tane bau j hurt kari che ane hu kyarey ene thik nai kari saku...hu tane etle message nai karto kem k mane m thaay che k hu tane vadhare gusso apai dais....but mane aa chello chance aap have kyarey aau nai karu..ekdam saro thai jais ne aa vaar biju kai j undhu nai karu promise.</p>
+            <p>I love you more than words can say. ha i know kadach tari sagai thai jase...ne dhinglu ha mane dukh thase but koi vakhat hu enathi tari par gusse nai thau yarrr like te j kidhu hatu k hu ena lidhe gusse chu...na yarr...ha me past ma tane heran kari hati etle tane lagyu hase but evu kai nathi dhinglu kem k ema tu pan kai nathi kari sakti to its not your fault...salu kharekhar i really miss you..mane kai khabar nati padti etle bas aa site banai didhi i hope tane game i am pouring my all love to make this site only for you my love.</p>
+            <p>With all my Love and Care,<br>Taro Betu</p>
+        </div>
+        <div class="buttons">
+            <button class="yes-btn" onclick="goToPassword()">Yes, I forgive you</button>
+            <button class="no-btn" onclick="showModal()">No</button>
+        </div>
+    </div>
+
+    <!-- Page 2: Password -->
+    <div id="page2" class="page">
+        <h1>Unlock Our Memories</h1>
+        <div class="password-section">
+            <p>Te vhaal thi je maru naam padyu hatu ne e enter kar </p>
+            <p>(First letter capital che haa)</p>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Enter password...">
+            <br>
+            <button class="password-btn" onclick="checkPassword()">Enter</button>
+            <p id="passwordError" style="color: red; display: none;">Oops! That's not it. Try again? (Hint: It's what you called me in our sweetest moments.)</p>
+        </div>
+    </div>
+
+    <!-- Page 3: Memories -->
+    <div id="page3" class="page">
+        <h1>OUR HEART SPACE</h1>
+        <div class="memories" id="memoriesScroll">
+            <!-- Chapter 1: Beginning -->
+            <div class="chapter">
+                <div class="chapter-header" onclick="toggleChapter(this)">
+                    <span>The Beginning</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="chapter-content">
+                   
+                    <p>Hu e divas kyarey nai bhulu j divse aapde ekbija ne confess karyu hatu k ha tu mane game che. Ne ha mane tara reaction yaad che haju pan like "hee, Sacche". Toy saalu sharuaat j jhagda thi thai hati. Dobi. Ekto jhagdo thayo hato ne pachi banney ni exam. E divse pan etlu thai gayu hatu ne k yarr shu kari didhu me aatli pyari chokri jode. Etle thodo dar pan lagto hato k tane shu j kais hu ne tu shu j vicharis mane laine. But pachi i think sanjhe 5 or 6 vagya ni aaspass taro message aayo ne badhu sarkhu thayu. 20th Nov. Ena pachi jaane "aaj me upar, aasmaan niche, aaj me aage , zamana hai piche". Sacche mara jeevan ma tu bau j khaas che yarr i mean it.</p>
+                </div>
+            </div>
+
+            <!-- Chapter 2: The Happiest -->
+            <div class="chapter">
+                <div class="chapter-header" onclick="toggleChapter(this)">
+                    <span>The Happiest</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="chapter-content">
+                    
+                    <p>Aapde aamto bau j unexpected rite mlaya hata. Jem k koi planning vagar j. Like hu mara nani ne tya hato ne aapdi vaat thati hati ne tu tara ghare gai hati ne pachi bus ma aai rai hati. Me tane puchyu k kya utarvani ne te kidhu ranip ne pachi j aapde malya hata. Te mast blue colour nu crop-top peryu hatu. Pachi aapde rf jaine betha ne sharuaat ma to shant betha hata but pachi keva mast hug karine betha hata. Ne jya hug ni vaat aave ne tya GH-4 vadu hug na yaad aave to shu dhul mane kai yaad che. Tyare around 11 or 11:30 thaya hase raat na ne salu winter ni thandi. Hu ghare bahanu banai ne aayo hato k maro friend aayo che ena bhaio jode to ene nasto karvo hato to jagya batai me ene to key najik hoy to mali ja. Ne tane pachi pathika thi lidhi tara bhari bharkham bag sathe ne gaya GH-4. Thakeli etli k aaine sidhu mane evu mast hug karyu ne jaane mari upar sui gai. Yarr sacche e mara mate etlu khass hatu ne k shu j kau tane. Kai khass boli nai aaine bas mane choti padi. Haal pan e vichari ne goosebumps aave bol. Sacche te mene bau prem thi ekdam nana chokra jem rakhyo. Ne hve j kau ema to rovani vaat aave but aapde ketlu roya ekbija thi dur javanu hatu to. Jyare maliye tyare roya ekdam mann bhari ne. Salu ek jagya baaki nai rakhi nai..Tara PG niche, Oxygen park ma, GH-4, Pachi aapde jya bus stand par besva jaiye tya, River-front. Ne jode to etlu farya k na pucho vaat. Natako pan etla j karya, vaat vaat ma taru risai jau ne taru evu kevu k "eyy..hamna ek padse n", "jaanemannn", pachi ha "babayeee" , Ne haa be taru naak ne kemno bhuli gayo. taru naak to yarr shu j kau. Hu m kai saku k mane tu karta taru naak bau game. Majaak majaak ha dobi. Mane sacche tu aakhi bau game.</p>
+                </div>
+            </div>
+
+            <!-- Chapter 3: The Saddest -->
+            <div class="chapter">
+                <div class="chapter-header" onclick="toggleChapter(this)">
+                    <span>The Saddest</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="chapter-content">
+                    
+                    <p>Vaat sauthi sara ni thai rai che to sauthi kharab pan aavvanu j hatu. date i think 8-9 August ni che i guess. Aam to har vaar me kaik ne kaik undhu karyu j che ne undhu bolyo j chu ne e divse pan bau boli gayo hato. Jena lidhe aapdi bau time sudhi vaat nati thai. E vakhte pan vaat karvi hati but pachi tu tara family jode Udaipur gai hati etle mane lagyu hatu k haal heran nai karvi. But tu aai pachi kari hati vaat. But e vakhte pan tane bau miss kari hati but khabar nati padti ne himmat pan nati k shu message karu ne ema tane shu j kau. But himmat kari ne message kari lidho hato. Ne biji vaar hamna bhul thai. Ha tu ena vishe vaat karva nai mangti hoy Ik etle nathi karto. But ena mate dill thi sorry maru dhinglu. Bhulo me bau j kari che but aa 2 jhagdo hu kyarey nai bhulu kem k aa banney vakhte evu lagyu che k bas tu chodi ne gai. Ha mari j bhul che Ik ne me tane har time dukhi j kari che ena mate bau j bau j sorry bacchu.</p>
+                </div>
+            </div>
+        </div>
+        <div class="final-message">
+            <p>Bacchu, aamto aapde bau j badhi sari-kharab banney situation sathe jivya chiye but me ena main 3 chapter banaya che. (J thodu tough hatu) kem k aiya jagya bau ochi che ne share karva mate bau j badhu. Bacchu i request you k vanchje bau prem thi tara mate banayu che</p>
+            <P>I REALLY MISS YOU MARU BACCHU</P>
+        </div>
+    </div>
+
+    <!-- Modal for No -->
+    <div id="pleaModal" class="modal">
+        <div class="modal-content">
+            <h2>Please, One More Chance?</h2>
+            <div class="modal-message">
+                Please Yes kari de Dhinglu. Have kyarey taru dill nai dukhadu maru dhinglu. Pakku promise!! 
+            <div class="retry-buttons">
+                <button class="retry-yes" onclick="closeModalAndProceed()">Yes, let's try</button>
+                <button class="retry-no" onclick="showModalAgain()">Not yet</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PASSWORD = "Betu";
+        let modalAttempts = 0;
+        const MAX_ATTEMPTS = 5; // Optional: Limit loops to prevent frustration, but loops until yes as requested
+
+        function goToPassword() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+        }
+
+        function showModal() {
+            document.getElementById('pleaModal').style.display = 'block';
+            modalAttempts++;
+        }
+
+        function closeModalAndProceed() {
+            document.getElementById('pleaModal').style.display = 'none';
+            goToPassword(); // Proceed to password on yes
+        }
+
+        function showModalAgain() {
+            document.getElementById('pleaModal').style.display = 'none';
+            if (modalAttempts < MAX_ATTEMPTS) {
+                setTimeout(showModal, 1000); // Brief pause, then show again
+            } else {
+                // Optional: After max, gently nudge to yes
+                alert("I promise to make it right. Please, say yes? 💔");
+                closeModalAndProceed();
+            }
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.trim();
+            const error = document.getElementById('passwordError');
+            if (input === PASSWORD) {
+                document.getElementById('page2').classList.remove('active');
+                document.getElementById('page3').classList.add('active');
+            } else {
+                error.style.display = 'block';
+                setTimeout(() => { error.style.display = 'none'; }, 3000);
+            }
+        }
+
+        // New function for toggling chapters
+        function toggleChapter(header) {
+            const chapter = header.parentElement;
+            chapter.classList.toggle('expanded');
+        }
+
+        // Close modal on outside click (optional, for UX)
+        window.onclick = function(event) {
+            const modal = document.getElementById('pleaModal');
+            if (event.target === modal) {
+                closeModalAndProceed(); // Treat outside click as yes to progress
+            }
+        }
+    </script>
+</body>
+</html>
