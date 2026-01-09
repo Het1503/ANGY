@@ -47,13 +47,50 @@
             font-size: 1.8em; /* Smaller on mobile */
         }
         .apology-letter {
-            line-height: 1.5; /* Tighter line-height for mobile */
+            line-height: 1.6; /* Slightly increased for better readability */
             margin-bottom: 30px;
             font-size: 1em; /* Smaller font for better fit */
             padding: 30px 20px; /* Increased padding to push text away from edges */
             max-width: 80%; /* Narrow text width - shorter lines */
             margin-left: auto;
             margin-right: auto; /* Center the narrowed text */
+            text-align: justify; /* Justify the main text */
+        }
+        .apology-letter p:first-child {
+            text-align: center; /* Center the greeting for emphasis */
+            font-weight: bold;
+        }
+        .apology-letter p:last-child {
+            text-align: center; /* Center the signature */
+            font-style: italic;
+        }
+        .confession {
+            line-height: 1.6; /* Slightly increased for better readability */
+            margin-bottom: 10px; /* Reduced margin to bring song closer */
+            font-size: 1em; /* Smaller font for better fit */
+            padding: 30px 20px; /* Increased padding to push text away from edges */
+            max-width: 80%; /* Narrow text width - shorter lines */
+            margin-left: auto;
+            margin-right: auto; /* Center the narrowed text */
+            text-align: justify; /* Justify the main text */
+        }
+        .confession p:first-child {
+            text-align: center; /* Center the greeting for emphasis */
+            font-weight: bold;
+        }
+        .song-section {
+            margin-top: 10px; /* Reduced top margin to bring closer to confession */
+            padding: 20px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+        }
+        .song-section h2 {
+            color: #ff4757;
+            margin-bottom: 15px;
+        }
+        .song-section audio {
+            width: 100%;
+            max-width: 400px;
         }
         .buttons {
             display: flex;
@@ -238,12 +275,12 @@
                 font-size: 1.5em;
                 margin-bottom: 15px;
             }
-            .apology-letter {
+            .apology-letter, .confession {
                 font-size: 0.95em;
-                line-height: 1.4;
+                line-height: 1.5;
                 margin-bottom: 25px;
                 padding: 25px 15px; /* Extra padding on mobile for edges */
-                max-width: 85%; /* Slightly wider on mobile for balance */
+                max-width: 90%; /* Slightly wider on mobile for balance */
             }
             button {
                 padding: 8px 16px;
@@ -252,6 +289,10 @@
             .buttons {
                 gap: 10px;
                 margin-top: 20px;
+            }
+            .song-section {
+                padding: 15px;
+                margin-top: 5px; /* Even closer on mobile */
             }
         }
         @media (max-width: 480px) {
@@ -265,10 +306,10 @@
             h1 {
                 font-size: 1.3em;
             }
-            .apology-letter {
+            .apology-letter, .confession {
                 font-size: 0.9em;
                 padding: 30px 10px; /* More padding on small screens for edges */
-                max-width: 90%; /* Even wider on tiny screens */
+                max-width: 95%; /* Even wider on tiny screens */
             }
         }
     </style>
@@ -283,7 +324,7 @@
         <h1>I'm Truly Sorry, My Love</h1>
         <div class="apology-letter">
             <p>Maru pyaru dhinglu,</p>
-            <p>Hii..Shu kare che. I hope you are doing well. I know we haven’t been talking and i can understand that. I just wanted to check on you, how is your hand now? I’ve been thinking about it. Ghee lagayu hatu? Bau dukhtu hoy to tara bhai ne keje malam leto aave hospital thi ne e lagi de j. Ne ha mane khabr che tu mara jem careless nathi but toy dhyaan rakh thodu yarr tu. Ha ha have i not here to lecturing you but still yarr. Ne brbr jame che ne tu be k haju pan 0.5 ne 1.5 ma j rame che? </p>
+            <p>Hii..Shu kare che. I hope you are doing well. I know we haven’t been talking and i can understand that. I just wanted to check on you, how is your hand now? I’ve been thinking about it. Ghee lagayu hatu? Bau dukhtu hoy to tara bhai ne keje malam leto aave hospital thi ne e lagi de j. Ne ha mane khabr che tu mara jem careless nathi but toy dhyaan rakh thodu yarr tu. Ha ha have i not here to lecturing you but still yarr. Ne brbr jame che ne tu k haju pan 0.5 ne 1.5 ma j rame che? </p>
             <p>Okay now lets talk about this site. I know things are getting messy right now and i know thats because of me. I am truly sorry from the bottom of my heart. Your presence in my life matters to me more then i can explain. Ne have chal jaa ne explore kar aa site. </p>
             <p>With all my Love and Care,<br>Taro Betu</p>
         </div>
@@ -295,7 +336,7 @@
 
     <!-- Page 2: Password -->
     <div id="page2" class="page">
-        <h1>Unlock Our Memories</h1>
+        <h1>Unlock The Love</h1>
         <div class="password-section">
             <p>Te vhaal thi je maru naam padyu hatu ne e enter kar </p>
             <p>(First letter capital che haa)</p>
@@ -347,8 +388,30 @@
             </div>
         </div>
         <div class="final-message">
-            <p>Bacchu, aamto aapde bau j badhi sari-kharab banney situation ma ek sathe rahya chiye (Mostly sari vastuo bani che kem k tu jo mari jode hati). Me ena main 3 chapter banaya che. (J thodu tough hatu) kem k aiya jagya bau ochi che ne share karva mate bau j badhu. Bacchu i request you k vanchje bau prem thi tara mate banayu che</p>
+            <p>I wrote 3 main chapters of our relationship (J thodu tough hatu). Kem k aiya jagya bau ochi che ne share karva mate bau j badhu. But i hope you like it</p>
             <P>I REALLY MISS YOU MARU BACCHU</P>
+        </div>
+        <div class="buttons">
+            <button class="yes-btn" onclick="goToConclusion()">Go for the Confession</button>
+        </div>
+    </div>
+
+    <!-- Page 4: Conclusion -->
+    <div id="page4" class="page">
+        <h1>Confession</h1>
+        <div class="confession">
+            <p>Eyy Dobi</p>
+            <p>I will never forget the day we confessed our love to each other. I will never forget the first time we met at the Riverfront. And in the process of love We shared so much emotions I never thought I could show to anyone in my life, but I did, in front of you. We cried a lot, fought a lot, cared a lot, and i know still we do. And I think that’s how we grow together, with every emotion. I don’t know what the future holds for us but when the night turns dark, we will fight to be together like we always did. And if there ever comes a night dark enough to break us, I want us to remember this that we loved each other from the core of our hearts. And before that night ever arrives, I make sure that we dance like idiots while holding each other’s hands and singing this song at the top of both our lungs.</p>
+        </div>
+        <div class="song-section">
+            <h2>Play the song My Love</h2>
+            
+            <audio controls>
+                <source src="Stand_By_Me.mp3" type="audio/mpeg">
+                Your browser does not support the audio element. Please upload your song file here (e.g., replace "path/to/your/song.mp3" with the actual file path).
+            </audio>
+            <!-- Alternative: If you prefer a YouTube embed, uncomment below and replace VIDEO_ID -->
+            <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" title="Our Song" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
         </div>
     </div>
 
@@ -412,6 +475,12 @@
         function toggleChapter(header) {
             const chapter = header.parentElement;
             chapter.classList.toggle('expanded');
+        }
+
+        // New function for going to conclusion
+        function goToConclusion() {
+            document.getElementById('page3').classList.remove('active');
+            document.getElementById('page4').classList.add('active');
         }
 
         // Close modal on outside click (optional, for UX)
