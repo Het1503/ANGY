@@ -18,9 +18,9 @@
             color: #333;
         }
         .title {
-            width: 200px; /* Adjusted for mobile - smaller logo on phone */
+            width: 200px; /* Desktop logo size */
             height: auto;
-            margin: 10px auto 15px; /* Reduced margins for tighter fit on mobile */
+            margin: 10px auto 15px; /* Reduced margins for tighter fit */
             display: block;
         }
         .title img {
@@ -30,13 +30,14 @@
         }
         .page {
             max-width: 600px; /* Desktop width */
-            padding: 20px 15px; /* Reduced padding for mobile */
+            padding: 20px 15px; /* Base padding */
             text-align: center;
             background: rgba(255,255,255,0.9);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             display: none;
             width: 90%; /* Responsive width for mobile */
+            margin: 0 auto; /* Ensure centering */
         }
         .page.active {
             display: block;
@@ -44,13 +45,13 @@
         h1 {
             color: #ff4757;
             margin-bottom: 20px; /* Reduced margin */
-            font-size: 1.8em; /* Smaller on mobile */
+            font-size: 1.8em; /* Base font size */
         }
         .apology-letter {
             line-height: 1.6; /* Slightly increased for better readability */
             margin-bottom: 30px;
-            font-size: 1em; /* Smaller font for better fit */
-            padding: 30px 20px; /* Increased padding to push text away from edges */
+            font-size: 1em; /* Base font size */
+            padding: 30px 20px; /* Base padding */
             max-width: 80%; /* Narrow text width - shorter lines */
             margin-left: auto;
             margin-right: auto; /* Center the narrowed text */
@@ -67,8 +68,8 @@
         .confession {
             line-height: 1.6; /* Slightly increased for better readability */
             margin-bottom: 10px; /* Reduced margin to bring song closer */
-            font-size: 1em; /* Smaller font for better fit */
-            padding: 30px 20px; /* Increased padding to push text away from edges */
+            font-size: 1em; /* Base font size */
+            padding: 30px 20px; /* Base padding */
             max-width: 80%; /* Narrow text width - shorter lines */
             margin-left: auto;
             margin-right: auto; /* Center the narrowed text */
@@ -97,15 +98,17 @@
             justify-content: center;
             gap: 15px; /* Smaller gap on mobile */
             margin-top: 20px;
+            flex-wrap: wrap; /* Allow wrapping on very small screens */
         }
         button {
-            padding: 10px 20px; /* Smaller buttons */
+            padding: 10px 20px; /* Base button padding */
             font-size: 0.95em;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: bold;
+            min-width: 120px; /* Prevent buttons from being too narrow */
         }
         .yes-btn {
             background: #2ed573;
@@ -133,6 +136,7 @@
             border-radius: 10px;
             width: 200px;
             margin: 10px;
+            max-width: 80%; /* Prevent overflow on small screens */
         }
         .password-btn {
             background: #ff9ff3;
@@ -265,51 +269,178 @@
         @media (max-width: 768px) {
             .page {
                 width: 95%;
-                padding: 15px 10px;
+                padding: 10px 8px; /* Smaller padding on tablets/small phones */
             }
             .title {
-                width: 180px;
-                margin: 10px auto 10px;
+                width: 160px; /* Smaller logo */
+                margin: 5px auto 10px;
             }
             h1 {
-                font-size: 1.5em;
-                margin-bottom: 15px;
+                font-size: 1.4em; /* Smaller heading */
+                margin-bottom: 12px;
             }
             .apology-letter, .confession {
-                font-size: 0.95em;
-                line-height: 1.5;
-                margin-bottom: 25px;
-                padding: 25px 15px; /* Extra padding on mobile for edges */
-                max-width: 90%; /* Slightly wider on mobile for balance */
+                font-size: 0.9em; /* Smaller font */
+                line-height: 1.4;
+                margin-bottom: 20px;
+                padding: 20px 12px; /* Reduced padding */
+                max-width: 95%; /* Wider text on mobile */
             }
             button {
-                padding: 8px 16px;
-                font-size: 0.9em;
+                padding: 8px 16px; /* Smaller buttons */
+                font-size: 0.85em;
             }
             .buttons {
-                gap: 10px;
-                margin-top: 20px;
+                gap: 8px; /* Tighter gap */
+                margin-top: 15px;
             }
             .song-section {
+                padding: 12px;
+                margin-top: 5px;
+            }
+            .password-input {
+                width: 80%;
+                max-width: 250px;
+            }
+            .memories {
+                padding: 12px;
+                max-height: 50vh; /* Shorter scroll area on mobile */
+            }
+            .chapter-header {
+                padding: 12px 16px; /* Smaller header padding */
+                font-size: 0.95em;
+            }
+            .chapter-content {
+                padding: 0 16px;
+            }
+            .chapter.expanded .chapter-content {
+                padding: 16px;
+            }
+            .chapter p {
+                font-size: 1em; /* Smaller chapter text */
+                line-height: 1.5;
+            }
+            .final-message {
+                font-size: 1em; /* Smaller final message */
                 padding: 15px;
-                margin-top: 5px; /* Even closer on mobile */
+                margin-top: 20px;
             }
         }
         @media (max-width: 480px) {
             .page {
                 width: 98%;
-                padding: 10px 5px;
+                padding: 8px 5px; /* Minimal padding on small phones */
+                border-radius: 15px; /* Slightly smaller radius */
             }
             .title {
-                width: 160px;
+                width: 140px; /* Even smaller logo for tiny screens */
+                margin: 5px auto 8px;
             }
             h1 {
-                font-size: 1.3em;
+                font-size: 1.2em; /* Further reduced */
+                margin-bottom: 10px;
             }
             .apology-letter, .confession {
+                font-size: 0.85em; /* Even smaller font */
+                padding: 15px 8px; /* Tighter padding */
+                max-width: 98%;
+                margin-bottom: 15px;
+            }
+            button {
+                padding: 6px 12px; /* Compact buttons */
+                font-size: 0.8em;
+                min-width: 100px;
+            }
+            .buttons {
+                gap: 5px;
+                margin-top: 10px;
+                flex-direction: column; /* Stack buttons vertically if needed */
+            }
+            .song-section {
+                padding: 10px;
+                margin-top: 3px;
+            }
+            .song-section h2 {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+            .password-input {
+                width: 90%;
+                padding: 8px;
                 font-size: 0.9em;
-                padding: 30px 10px; /* More padding on small screens for edges */
-                max-width: 95%; /* Even wider on tiny screens */
+            }
+            .memories {
+                padding: 10px;
+                max-height: 45vh; /* Adjust for smaller screens */
+            }
+            .chapter-header {
+                padding: 10px 12px;
+                font-size: 0.9em;
+            }
+            .chapter-content {
+                padding: 0 12px;
+            }
+            .chapter.expanded .chapter-content {
+                padding: 12px;
+            }
+            .chapter p {
+                font-size: 0.95em;
+                line-height: 1.4;
+            }
+            .arrow {
+                font-size: 1em;
+            }
+            .final-message {
+                font-size: 0.95em;
+                padding: 12px;
+                margin-top: 15px;
+            }
+            .modal-content {
+                width: 90%;
+                max-width: 350px;
+                margin: 20% auto;
+                padding: 20px;
+            }
+        }
+        @media (max-width: 360px) {
+            /* Extra small phones */
+            .page {
+                width: 100%;
+                padding: 5px 3px;
+                border-radius: 10px;
+            }
+            .title {
+                width: 120px;
+            }
+            h1 {
+                font-size: 1.1em;
+            }
+            .apology-letter, .confession {
+                font-size: 0.8em;
+                padding: 12px 5px;
+            }
+            button {
+                width: 100%; /* Full width buttons on tiny screens */
+                margin-bottom: 5px;
+            }
+            .buttons {
+                flex-direction: column;
+                gap: 0;
+            }
+            .password-input {
+                width: 95%;
+            }
+            .memories {
+                max-height: 40vh;
+                padding: 8px;
+            }
+            .chapter-header {
+                padding: 8px 10px;
+                font-size: 0.85em;
+            }
+            .final-message {
+                font-size: 0.9em;
+                padding: 10px;
             }
         }
     </style>
@@ -389,7 +520,7 @@
         </div>
         <div class="final-message">
             <p>I wrote 3 main chapters of our relationship (J thodu tough hatu). Kem k aiya jagya bau ochi che ne share karva mate bau j badhu. But i hope you like it</p>
-            <P>I REALLY MISS YOU MARU BACCHU</P>
+            <p>I REALLY MISS YOU MARU BACCHU</p>
         </div>
         <div class="buttons">
             <button class="yes-btn" onclick="goToConclusion()">Go for the Confession</button>
